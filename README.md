@@ -71,3 +71,10 @@ This section lists the general steps to follow during the deployment of KenyaEMR
     > **Note:** _You might be required to stop the target servlet container before running this migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
 
 - That's it :thumbsup:, restart the servlet container (if not already started) and you should be good to go.
+
+
+## License
+
+[MIT License](https://github.com/savannahghi/kenya-emr-releases/blob/main/License)
+
+Copyright (c) 2023, Savannah Informatics Global Health Institute
