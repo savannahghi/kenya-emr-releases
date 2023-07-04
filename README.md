@@ -7,25 +7,26 @@ This repository contains releases for OpenMRS-based EMR for the Kenya Ministry o
 ```
 .
 KenyaEMR-v{x.y.z}.tar.xz
-├── configuration - Extra configurations needed to run KenyaEMR.
-├── databases - Database dumps to restore for a fresh installation.
-|   ├── openmrs.sql - The main database dump.
-|   └── *.sql - Other database dumps (optional).
-├── frontend - Assets and static files required to render the UI.
-├── migrations - Database migration files.
-|   ├── install - SQL migration files to run during installation.
-|   |   └── *.sql (optional)
-|   ├── post_install - SQL migration files to run after installation.
-|   |   └── *.sql (optional)
-|   ├── upgrade - SQL migration files to run during an upgrade.
-|   |   └── *.sql (optional)
-|   └── post_upgrade - SQL migration files to run after an upgrade.
-|       └── *.sql (optional)
-├── modules - OpenMRS module files (omod) that constitute this release.
-|   └── *.omod
-├── webapps - War files to deploy to a servlet container.
-|   └── openmrs.war - The OpenMRS war file.
-└── README.md - Readme file with additional info about this release (optional).
+└── kenya-emr-release-content - Release content root folder.
+    ├── configuration - Extra configurations needed to run KenyaEMR.
+    ├── databases - Database dumps to restore for a fresh installation.
+    |   ├── openmrs.sql - The main database dump.
+    |   └── *.sql - Other database dumps (optional).
+    ├── frontend - Assets and static files required to render the UI.
+    ├── migrations - Database migration files.
+    |   ├── install - SQL migration files to run during installation.
+    |   |   └── *.sql (optional)
+    |   ├── post_install - SQL migration files to run after installation.
+    |   |   └── *.sql (optional)
+    |   ├── upgrade - SQL migration files to run during an upgrade.
+    |   |   └── *.sql (optional)
+    |   └── post_upgrade - SQL migration files to run after an upgrade.
+    |       └── *.sql (optional)
+    ├── modules - OpenMRS module files (omod) that constitute this release.
+    |   └── *.omod
+    ├── webapps - War files to deploy to a servlet container.
+    |   └── openmrs.war - The OpenMRS war file.
+    └── README.md - Readme file with additional info about this release (optional).
 ```
 
 Things to note:
@@ -52,7 +53,7 @@ This section lists the general steps to follow during the deployment of KenyaEMR
 - Restart the target servlet container.
 - After a successful start of KenyaEMR, apply any database migration files that are in the `keEMR-x.y.z/migrations/post_install` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
 
-    > **Note:** _You might be required to stop the target servlet container before running this migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
+    > **Note:** _You might be required to stop the target servlet container before running these migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
 
 - That's it :thumbsup:, restart the servlet container (if not already started) and you should be good to go.
 
@@ -68,7 +69,7 @@ This section lists the general steps to follow during the deployment of KenyaEMR
 - Restart the target servlet container.
 - After a successful start of KenyaEMR, apply any database migration files that are in the `keEMR-x.y.z/migrations/post_upgrade` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
 
-    > **Note:** _You might be required to stop the target servlet container before running this migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
+    > **Note:** _You might be required to stop the target servlet container before running these migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
 
 - That's it :thumbsup:, restart the servlet container (if not already started) and you should be good to go.
 
