@@ -24,6 +24,24 @@ KenyaEMR-v{x.y.z}.tar.xz
     |       └── *.sql (optional)
     ├── modules - OpenMRS module files (omod) that constitute this release.
     |   └── *.omod
+    ├── extra_modules - OpenMRS module files (omod) that are not part of official KenyaEMR release
+    |   └── module_x - Directory containing extra module, typically named same as <module_name>
+    |   |    └── migrations - Database migration files. Follows the same hierarchy as shown in parent folder
+    |   |       ├── install - SQL migration files to run during installation.
+    |   |       |   └── *.sql (optional)
+    |   |       ├── post_install - SQL migration files to run after installation.
+    |   |       |   └── *.sql (optional)
+    |   |       ├── upgrade - SQL migration files to run during an upgrade.
+    |   |       |   └── *.sql (optional)
+    |   |       └── post_upgrade - SQL migration files to run after an upgrade.
+    |   |       |   └── *.sql (optional)
+    |   |       module_x.omod - the actual omod file. Must be named as <module_name>.omod
+    |   └── module^n - Other extra modules will follow the same hierarchy as above.
+    |           └── migrations ...
+    |           |     ├── install
+    |           |           .......
+    |           |               ......
+    |           module^n.omod 
     ├── webapps - War files to deploy to a servlet container.
     |   └── openmrs.war - The OpenMRS war file.
     └── README.md - Readme file with additional info about this release (optional).
@@ -46,13 +64,20 @@ This section lists the general steps to follow during the deployment of KenyaEMR
 - Stop the target servlet container if running.
 - Copy the `openmrs.war` file from the `keEMR-x.y.z/webapps` directory into the webapps (or similar) directory of the servlet container.
 - Create an [OpenMRS data directory](https://wiki.openmrs.org/display/docs/Application+Data+Directory). We will refer to this directory as `oMRS_data_dir`.
+- Copy omods in `keEMR-x.y.z/extra_modules/<module_name>/<module_name>.omod` to `keEMR-x.y.z/modules` - Do this for every exra module.
 - Copy `keEMR-x.y.z/configuration`, `keEMR-x.y.z/modules` and `keEMR-x.y.z/frontend` directories to the `oMRS_data_dir` directory.
 - Create a database named `openmrs` and import/restore it contents  from `keEMR-x.y.z/databases/openmrs.sql` SQL dump file.
-- Apply any database migration files that are in the `keEMR-x.y.z/migrations/install` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
+- Apply any database migration files that are in the `keEMR-x.y.z/migrations/install` directory to the `openmrs` (unless specified otherwise) database. 
+If non are available, skip this step.
+- Apply any database migration files that are in the `keEMR-x.y.z/extra_modules/<module_name>/migrations/install`  directory to the `openmrs` (unless specified otherwise) database - Repeat this for every extra module.
+If non are available, skip this step.
 - Create an openmrs [runtime properties file](https://wiki.openmrs.org/display/docs/Overriding+OpenMRS+Default+Runtime+Properties) and populate it with the appropriate settings for your installation.
 - Restart the target servlet container.
-- After a successful start of KenyaEMR, apply any database migration files that are in the `keEMR-x.y.z/migrations/post_install` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
-
+- After a successful start of KenyaEMR;
+- Apply any database migration files that are in the `keEMR-x.y.z/migrations/post_install` directory to the `openmrs` (unless specified otherwise) database. 
+If non are available, skip this step.
+- Apply any database migration files that are in the `keEMR-x.y.z/<extra_modules>/<module_name>/migrations/post_install` directory to the `openmrs` (unless specified otherwise) database - Repeat this for every module. 
+If non are available, skip this step.
     > **Note:** _You might be required to stop the target servlet container before running these migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
 
 - That's it :thumbsup:, restart the servlet container (if not already started) and you should be good to go.
@@ -64,11 +89,18 @@ This section lists the general steps to follow during the deployment of KenyaEMR
 - Replace the `openmrs.war` file in the webapps (or similar) directory of the servlet container with the one in the `keEMR-x.y.z/webapps` directory.
 - Locate the [OpenMRS data directory](https://wiki.openmrs.org/display/docs/Application+Data+Directory) of the installation. We will refer to this directory as `oMRS_data_dir`.
 - Delete the following sub-directories from the `oMRS_data_dir` directory: `configuration`, `modules` and `frontend`.
-- Copy `keEMR-x.y.z/configuration`, `keEMR-x.y.z/modules` and `keEMR-x.y.z/frontend` directories to the `oMRS_data_dir` directory.
-- Apply any database migration files that are in the `keEMR-x.y.z/migrations/upgrade` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
+- Copy omods in `keEMR-x.y.z/extra_modules/<module_name>/<module_name>.omod` to `keEMR-x.y.z/modules` - Do this for every exra module.
+- Copy `keEMR-x.y.z/configuration`, `keEMR-x.y.z/modules`, `keEMR-x.y.z/extra_modules` and `keEMR-x.y.z/frontend` directories to the `oMRS_data_dir` directory.
+- Apply any database migration files that are in the `keEMR-x.y.z/migrations/upgrade` directory to the `openmrs` (unless specified otherwise) database. 
+If non are available, skip this step.
+- Apply any database migration files that are in the `keEMR-x.y.z/<extra_modules>/<module_name>/migrations/upgrade` directory to the `openmrs` (unless specified otherwise) database - Repeat this for every extra module. 
+If non are available, skip this step.
 - Restart the target servlet container.
-- After a successful start of KenyaEMR, apply any database migration files that are in the `keEMR-x.y.z/migrations/post_upgrade` directory to the `openmrs` (unless specified otherwise) database. If non are available, skip this step.
-
+- After a successful start of KenyaEMR;
+- Apply any database migration files that are in the `keEMR-x.y.z/migrations/post_upgrade` directory to the `openmrs` (unless specified otherwise) database. 
+If non are available, skip this step.
+- Apply any database migration files that are in the `keEMR-x.y.z/<extra_modules>/<module_name>/migrations/post_upgrade` directory to the `openmrs` (unless specified otherwise) database - Repeat this for every extra module.
+If non are available, skip this step.
     > **Note:** _You might be required to stop the target servlet container before running these migrations or perform some additional steps. If this is the case, it will be indicated on the release README._
 
 - That's it :thumbsup:, restart the servlet container (if not already started) and you should be good to go.
