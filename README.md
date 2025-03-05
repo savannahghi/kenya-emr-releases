@@ -1,6 +1,8 @@
 # KenyaEMR Releases
 
-This repository contains releases for OpenMRS-based EMR for the Kenya Ministry of Health(MoH), KenyaEMR. KenyaEMR is developed and maintained by [Palladium Kenya](https://github.com/orgs/palladiumkenya). These releases are similar to those found on the official release page [here](https://github.com/palladiumkenya/kenyahmis-releases/releases). The only difference is that the releases found in this repository are repackaged to conform to the directory structure listed below. The purpose of this repository is to provide a standard structure to KenyaEMR releases making it easier to create deployment automation scripts.
+This repository contains releases for OpenMRS-based EMR for the Kenya Ministry of Health(MoH), KenyaEMR. KenyaEMR is developed and maintained by [Palladium Kenya](https://github.com/orgs/palladiumkenya). These releases are similar to those found on the official release page (check [here](https://github.com/palladiumkenya/kenyahmis-releases/releases) for older releases or [here](https://github.com/palladiumkenya/openmrs-config-kenyaemr/releases) for newer ones).
+
+The only difference is that the releases found in this repository are repackaged to conform to the directory structure listed below. The purpose of this repository is to provide a standard structure to KenyaEMR releases making it easier to create deployment automation scripts.
 
 ## Archive directory structure
 
